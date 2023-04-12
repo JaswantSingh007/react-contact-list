@@ -1,31 +1,44 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
+const EditContact = () => {
+  const {id}=useParams();
 
-const AddContact = () => {
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
-    const [website, setWebsite] = useState('');
+//   useEffect(()=>{
+//     console.log("hii");
+//     fetch("https://jsonplaceholder.typicode.com/users/"+id)
+//       .then((res)=>{
+//         return res.json();
+//       })
+//       .then((res)=>{
+//         setName(res.name);
+//         setPhone(res.phone);
+//         setEmail(res.email);
+//         setAddress(res.address);
+//         setWebsite(res.website);
+//       })
+//       .catch((err)=>{
+//         console.log(err.message);
+//       })
+//   },[id])
 
-    //using useNavigate hook for navigating through
-    const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [website, setWebsite] = useState('');
 
-    const contactDetails = {name, phone,email,address,website};
+  const navigate = useNavigate();
+
 
     const handelSubmit=(e)=>{
         e.preventDefault();
+        const contactDetails = {id, name, phone, email, address, website};
         console.log("clicked!");
-        fetch('https://jsonplaceholder.typicode.com/users', {
-            method: 'POST',
-            body: JSON.stringify(
-                // name:name,
-                // phone:phone,
-                // email:email,
-                // address:address,
-                // website:website, 
+        fetch('https://jsonplaceholder.typicode.com/users/'+id, {
+            method: 'PUT',
+            body: JSON.stringify( 
                 contactDetails
             ),
             headers: {
@@ -44,8 +57,9 @@ const AddContact = () => {
 
     return (
     <>
-        <h2 className='text-center mb-10 text-5xl'>Create New Contact</h2>
+        <h2 className='text-center mb-10 text-5xl'>Update Contact</h2>
         <form className='ml-20 mr-8' onSubmit={handelSubmit}>
+        <input value={id} disabled="disabled" className="form-control" />
         <div className='mb-3'>
             <label>Name</label>
             <input type='text' required className='form-control' placeholder='Name' onChange={(e)=>setName(e.target.value)} />
@@ -77,4 +91,4 @@ const AddContact = () => {
   )
 }
 
-export default AddContact;
+export default EditContact;
