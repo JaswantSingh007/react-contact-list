@@ -6,13 +6,12 @@ const AddContact = ({ setcontactList, contactList }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
   const [website, setWebsite] = useState("");
 
   //using useNavigate hook for navigating through
   const navigate = useNavigate();
 
-  const contactDetails = { name, phone, email, address, website };
+  const contactDetails = { name, phone, email, website };
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -66,16 +65,6 @@ const AddContact = ({ setcontactList, contactList }) => {
             aria-describedby="emailHelp"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Address</label>
-          <input
-            type="text"
-            required
-            className="mb-2 form-control"
-            placeholder="City"
-            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="mb-3">

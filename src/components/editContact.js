@@ -8,14 +8,14 @@ const EditContact = ({ setcontactList, contactList }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
   const [website, setWebsite] = useState("");
+  const [contact, setContact] = useState(contact);
 
   const navigate = useNavigate();
+  const contactDetails = { id, name, phone, email, website };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    const contactDetails = { name, phone, email, address, website };
     console.log("clicked!");
     fetch("https://jsonplaceholder.typicode.com/users/" + id, {
       method: "PUT",
@@ -25,15 +25,7 @@ const EditContact = ({ setcontactList, contactList }) => {
       },
     })
       .then((response) => response.json())
-      .then((json) => {
-        const updatedContacts = contactList.map((contact) => {
-          if (contact.id === id) {
-            contact.contactDetails = contactDetails;
-          }
-          return contact;
-        });
-        setcontactList((contactList) => updatedContacts);
-      })
+      .then((json) => setContact(json))
       .then(() => {
         navigate("/");
       })
@@ -46,7 +38,6 @@ const EditContact = ({ setcontactList, contactList }) => {
     <>
       <h2 className="text-center mb-10 text-5xl">Update Contact</h2>
       <form className="ml-20 mr-8" onSubmit={handelSubmit}>
-        {/* <input value={id} disabled="disabled" className="form-control" /> */}
         <div className="mb-3">
           <label>Name</label>
           <input
@@ -75,16 +66,6 @@ const EditContact = ({ setcontactList, contactList }) => {
             aria-describedby="emailHelp"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Address</label>
-          <input
-            type="text"
-            required
-            className="mb-2 form-control"
-            placeholder="City"
-            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="mb-3">

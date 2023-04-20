@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const ContactList = ({ contactList, setcontactList }) => {
+const ContactList = ({ contactList }) => {
   const navigate = useNavigate();
 
   const handelUpdate = (id) => {
@@ -31,10 +31,6 @@ const ContactList = ({ contactList, setcontactList }) => {
           <p>
             <span className="font-medium text-gray-500">Email : </span>
             {contact.email}
-          </p>
-          <p>
-            <span className="font-medium text-gray-500">Address(City) : </span>
-            {contact.address.city}
           </p>
           <p>
             <span className="font-medium text-gray-500">Website : </span>
