@@ -1,36 +1,54 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// import ContactList from "./ContactCards";
 
-const EditContact = ({ setcontactList, contactList }) => {
+const EditContact = ({ contactList, setcontactList }) => {
   const { id } = useParams();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
-  const [contact, setContact] = useState(contact);
 
   const navigate = useNavigate();
-  const contactDetails = { id, name, phone, email, website };
+  // const contactDetails = { id, name, phone, email, website };
 
   const handelSubmit = (e) => {
     e.preventDefault();
     console.log("clicked!");
     fetch("https://jsonplaceholder.typicode.com/users/" + id, {
       method: "PUT",
-      body: JSON.stringify(contactDetails),
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        email: email,
+        website: website,
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then((response) => response.json())
-      .then((json) => setContact(json))
+      .then((json) => {
+        // console.log(json);
+        let contact = contactList.findIndex(
+          (contact) => contact.id === parseInt(id)
+        );
+        contactList.splice(contact, 1, json);
+        // contactList.forEach((contact, index, arr) => {
+        //   if (contact.id === id) {
+        //     arr[index].name = json.name;
+        //     arr[index].phone = json.phone;
+        //     arr[index].email = json.email;
+        //     arr[index].website = json.website;
+        //   }
+        // });
+        // console.log(contactList, contact, id);
+        setcontactList([...contactList]);
+      })
       .then(() => {
         navigate("/");
-      })
-      .catch((err) => {
-        console.log(err.message);
       });
   };
 
@@ -41,6 +59,7 @@ const EditContact = ({ setcontactList, contactList }) => {
         <div className="mb-3">
           <label>Name</label>
           <input
+            defaultValue={name}
             type="text"
             required
             className="form-control"

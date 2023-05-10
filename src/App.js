@@ -52,7 +52,12 @@ const App = () => {
           <Route
             exact
             path="/"
-            element={<ContactList contactList={contactList} />}
+            element={
+              <ContactList
+                contactList={contactList}
+                setcontactList={setcontactList}
+              />
+            }
           />
           <Route
             exact
