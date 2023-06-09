@@ -34,15 +34,6 @@ const EditContact = ({ contactList, setcontactList }) => {
           (contact) => contact.id === parseInt(id)
         );
         contactList.splice(contact, 1, json);
-        // contactList.forEach((contact, index, arr) => {
-        //   if (contact.id === id) {
-        //     arr[index].name = json.name;
-        //     arr[index].phone = json.phone;
-        //     arr[index].email = json.email;
-        //     arr[index].website = json.website;
-        //   }
-        // });
-        // console.log(contactList, contact, id);
         setcontactList([...contactList]);
       })
       .then(() => {
