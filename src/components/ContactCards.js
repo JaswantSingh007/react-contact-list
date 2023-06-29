@@ -19,7 +19,7 @@ const ContactList = ({ contactList, setcontactList }) => {
   };
 
   return (
-    <div className="p-20 grid sm:grid-cols-2  lg:grid-cols-3 gap-6">
+    <div className=" p-20 grid sm:grid-cols-2  lg:grid-cols-3 gap-6">
       {contactList.map((contact, index) => (
         <div
           key={index}
